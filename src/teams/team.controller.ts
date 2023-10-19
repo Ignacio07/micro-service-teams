@@ -19,7 +19,7 @@ export class TeamController {
     return teams;
   }
 
-  @Get()
+  @Get(':id')
   async findOne(@Param('id') id: number){
     const team = await this.teamService.findOne(id);
     if(!team){
@@ -28,13 +28,13 @@ export class TeamController {
     return team;
   }
 
-  @Put()
+  @Put(':id')
   async update(@Param('id') id: number, @Body() updateTeamDto: UpdateTeamDto){
     const team = await this.teamService.update(id, updateTeamDto);
     return team;
   }
 
-  @Delete()
+  @Delete(':id')
   async remove(@Param('id') id: number) {
     await this.teamService.remove(id);
     return 'User deleted';
