@@ -1,0 +1,42 @@
+import { Controller, Get, Post, Put, Delete, Body, Param, NotFoundException } from '@nestjs/common';
+import { TeamService } from './team.service';
+import { CreateTeamDto } from './dto/create.team.dto';
+import { UpdateTeamDto } from './dto/update.team.dto';
+
+@Controller('teams')
+export class TeamController {
+  constructor(private readonly teamService: TeamService) {}
+
+  @Post()
+  async create(@Body() createTeamDto: CreateTeamDto){
+    const team = await this.teamService.create(createTeamDto);
+    return team;
+  }
+
+  @Get()
+  async findAll(){
+    const teams = await this.teamService.findAll();
+    return teams;
+  }
+
+  @Get()
+  async findOne(@Param('id') id: number){
+    const team = await this.teamService.findOne(id);
+    if(!team){
+        throw new NotFoundException('User not found');
+    }
+    return team;
+  }
+
+  @Put()
+  async update(@Param('id') id: number, @Body() updateTeamDto: UpdateTeamDto){
+    const team = await this.teamService.update(id, updateTeamDto);
+    return team;
+  }
+
+  @Delete()
+  async remove(@Param('id') id: number) {
+    await this.teamService.remove(id);
+    return 'User deleted';
+  }
+}
