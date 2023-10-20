@@ -22,17 +22,22 @@ export class MiddleService {
         return {team, member};
     }
 
-    async getTeamNames(): Promise<string[]> {
-        
-        const teams = await this.teamService.findAll(); 
-        if (!teams) {
-            return []; 
-        }
+    async getTeamNames(data: { email: string }): Promise<string[]> {
+        const email = data.email;
+        console.log(email);
+        const teamIds = await this.memberService.findTeamsByEmail(email); 
+        const teams = await this.teamService.findTeamsById(teamIds);
         const teamNames = teams.map((team) => team.name);
         console.log(teamNames);
-        return teamNames;
-        
-            
-        
+        return teamNames;  
     }
+
+
+    /*async changeTeamName(data: { email: string , id}): Promise<string> {
+        const email = data.email;
+        const teamIds = await this.memberService.findTeamsByEmail(email);
+        const teams = await this.teamService.findTeamsById(teamIds);
+        const teamNames
+        return team.name;
+    }*/
 }

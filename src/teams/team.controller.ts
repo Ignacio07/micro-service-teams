@@ -3,6 +3,7 @@ import { TeamService } from './team.service';
 import { CreateTeamDto } from './dto/create.team.dto';
 import { UpdateTeamDto } from './dto/update.team.dto';
 import { CreateMemberDto } from 'src/members/dto/create.member.dto';
+import { Team } from './entities/team.entity';
 
 @Controller('teams')
 export class TeamController {
@@ -40,10 +41,11 @@ export class TeamController {
     await this.teamService.remove(id);
     return 'User deleted';
   }
-  
-  @Get('/teamId/:id')
-  async findTeamsById(@Param('id') id: number){
-    const teams = await this.teamService.findTeamsById(id);
+
+  @Get('byIds/:ids')
+  async getTeamsByIds(@Param('ids') ids: string): Promise<Team[]> {
+    const teamIds = ids.split(',').map(Number);
+    const teams = await this.teamService.findTeamsById(teamIds);
     return teams;
   }
 }

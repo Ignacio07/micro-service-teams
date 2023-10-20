@@ -43,4 +43,10 @@ export class MemberController {
     await this.memberService.remove(email);
     return 'User deleted';
   }
+
+  @Get('teamIdsByEmail/:email')
+  async findTeamsByEmail(@Param('email') email: string): Promise<number[]> {
+    const teamIds = await this.memberService.findTeamsByEmail(email);
+    return teamIds;
+  }
 }

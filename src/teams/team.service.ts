@@ -45,9 +45,10 @@ export class TeamService {
         await this.teamRepository.remove(team);
     }
 
-    async findTeamsById(id: number): Promise<Team[]> {
-        return this.teamRepository.find({ where: { id } });
-    }
+    async findTeamsById(teamIds: number[]): Promise<Team[]> {
+        const teams = await this.teamRepository.findByIds(teamIds);
+        return teams;
+      }
 
     
 } 
