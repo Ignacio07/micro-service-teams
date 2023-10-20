@@ -2,6 +2,7 @@ import { Controller, Get, Post, Put, Delete, Body, Param, NotFoundException } fr
 import { TeamService } from './team.service';
 import { CreateTeamDto } from './dto/create.team.dto';
 import { UpdateTeamDto } from './dto/update.team.dto';
+import { CreateMemberDto } from 'src/members/dto/create.member.dto';
 
 @Controller('teams')
 export class TeamController {
@@ -38,5 +39,11 @@ export class TeamController {
   async remove(@Param('id') id: number) {
     await this.teamService.remove(id);
     return 'User deleted';
+  }
+  
+  @Get('/teamId/:id')
+  async findTeamsById(@Param('id') id: number){
+    const teams = await this.teamService.findTeamsById(id);
+    return teams;
   }
 }

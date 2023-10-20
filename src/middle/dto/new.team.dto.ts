@@ -1,8 +1,11 @@
-import { IsEmail, IsNotEmpty, IsNumber, IsString, isString } from "class-validator";
+import { IsEmail, IsNotEmpty, IsString } from "class-validator";
 
+export class NewTeamDto{
+       
+    @IsString()
+    @IsNotEmpty()
+    name: string;
 
-export class CreateMemberDto{
-    
     @IsEmail()
     email: string;
 
@@ -17,8 +20,4 @@ export class CreateMemberDto{
     @IsString()
     @IsNotEmpty()
     rol: string;
-
-    @IsNumber()
-    @IsNotEmpty()
-    id_team: number;
 }

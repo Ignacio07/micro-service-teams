@@ -4,6 +4,8 @@ import { Team } from './entities/team.entity';
 import { Repository } from 'typeorm';
 import { CreateTeamDto } from './dto/create.team.dto';
 import { UpdateTeamDto } from './dto/update.team.dto';
+import { CreateMemberDto } from 'src/members/dto/create.member.dto';
+
 
 @Injectable()
 export class TeamService {
@@ -12,7 +14,7 @@ export class TeamService {
         private teamRepository: Repository<Team>,
     ) {}
 
-    async create(createTeamDto: CreateTeamDto): Promise<Team> {
+    async create(createTeamDto: CreateTeamDto){
         const team = this.teamRepository.create(createTeamDto);
         return await this.teamRepository.save(team);
     }
@@ -42,4 +44,10 @@ export class TeamService {
 
         await this.teamRepository.remove(team);
     }
+
+    async findTeamsById(id: number): Promise<Team[]> {
+        return this.teamRepository.find({ where: { id } });
+    }
+
+    
 } 

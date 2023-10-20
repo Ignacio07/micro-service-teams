@@ -46,4 +46,6 @@ export class MemberService {
 
         await this.memberRepository.remove(team);
     }
+
+    
 } 
