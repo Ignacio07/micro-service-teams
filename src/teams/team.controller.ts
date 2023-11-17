@@ -49,9 +49,9 @@ export class TeamController {
     return teams;
   }
 
-  @Get('/project/:id-project')
-  async getTeamsByIdProject(@Param('id') id: string)  {
-    const id_busqueda = parseInt(id,10);
+  @Get('project/:id_project')
+  async getTeamsByIdProject(@Param('id_project') id_project: string)  {
+    const id_busqueda = parseInt(id_project,10);
     return await this.teamService.findTeamsByIdProject(id_busqueda);
     
   }
