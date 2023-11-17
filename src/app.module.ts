@@ -1,4 +1,3 @@
-import { MiddleModule } from './middle/middle.module';
 import { MiddleController } from './middle/middle.controller';
 import { MemberModule } from './members/member.module';
 import { TeamModule } from './teams/team.module';

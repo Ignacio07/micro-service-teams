@@ -9,14 +9,5 @@ export class Member {
   email: string;
 
   @Column()
-  firstName: string;
-
-  @Column()
-  lastName: string;
-
-  @Column()
-  rol: string;
-
-  @Column()
   id_team: number;
 }

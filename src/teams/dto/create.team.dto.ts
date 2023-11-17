@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsString } from "class-validator";
+import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 
 export class CreateTeamDto{
     
@@ -6,5 +6,8 @@ export class CreateTeamDto{
     @IsNotEmpty()
     name: string;
 
+    @IsNumber()
+    @IsNotEmpty()
+    id_project: number;
     
 }

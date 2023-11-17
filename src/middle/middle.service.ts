@@ -5,7 +5,7 @@ https://docs.nestjs.com/providers#services
 import { Injectable } from '@nestjs/common';
 import { MemberService } from 'src/members/member.service';
 import { TeamService } from 'src/teams/team.service';
-import { NewTeamDto } from './dto/new.team.dto';
+
 
 @Injectable()
 export class MiddleService {
@@ -14,22 +14,21 @@ export class MiddleService {
         private readonly memberService: MemberService,
     ) {}
 
-    async newTeam({name, firstName, lastName, email, rol} : NewTeamDto){
-        const team = await this.teamService.create({name});
-        const id_team = team.id;
-        console.log(id_team);
-        const member = await this.memberService.create({firstName, lastName, email, rol, id_team});
-        return {team, member};
-    }
 
-    async getTeamNames(data: { email: string }): Promise<string[]> {
+    async getTeams(data: { email: string }): Promise<{ id: number; name: string }[]> {
         const email = data.email;
         console.log(email);
-        const teamIds = await this.memberService.findTeamsByEmail(email); 
+    
+        const teamIds = await this.memberService.findTeamsByEmail(email);
         const teams = await this.teamService.findTeamsById(teamIds);
-        const teamNames = teams.map((team) => team.name);
-        console.log(teamNames);
-        return teamNames;  
+    
+        const teamsInfo = teams.map((team) => ({
+            id: team.id,
+            name: team.name,
+        }));
+    
+        console.log(teamsInfo);
+        return teamsInfo;
     }
 
 

@@ -7,4 +7,7 @@ export class Team {
 
   @Column()
   name: string;
+
+  @Column()
+  id_project: number;
 }

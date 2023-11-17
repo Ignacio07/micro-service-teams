@@ -30,7 +30,7 @@ export class TeamService {
     async update(id: number, updateTeamDto: UpdateTeamDto): Promise<Team | undefined> {
         const team = await this.teamRepository.findOneBy({id});
         if(!team){
-            throw new BadRequestException('User not found');
+            throw new BadRequestException('Team not found');
         }
         Object.assign(team, updateTeamDto);
         return await this.teamRepository.save(team);
@@ -39,16 +39,19 @@ export class TeamService {
     async remove(id: number): Promise<void>{
         const team = await this.teamRepository.findOneBy({id});
         if(!team){
-            throw new BadRequestException('User not found');
+            throw new BadRequestException('Team not found');
         }
 
         await this.teamRepository.remove(team);
     }
 
     async findTeamsById(teamIds: number[]): Promise<Team[]> {
-        const teams = await this.teamRepository.findByIds(teamIds);
+        const teams = await this.teamRepository.createQueryBuilder('team')
+            .whereInIds(teamIds)
+            .getMany();
+        console.log(teams);
         return teams;
-      }
+    }
 
     
 } 
