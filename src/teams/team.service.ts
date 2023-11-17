@@ -53,5 +53,15 @@ export class TeamService {
         return teams;
     }
 
+    async findTeamsByIdProject(idProject: number): Promise<{ ids: number[]; names: string[] }> {
+        const teams = await this.teamRepository.createQueryBuilder('team')
+            .where('team.id_project = :idProject', { idProject })
+            .getMany();
+
+        const ids = teams.map((team) => team.id);
+        const names = teams.map((team) => team.name);
+
+        return { ids, names };
+    }
     
 } 

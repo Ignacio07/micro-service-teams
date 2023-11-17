@@ -31,7 +31,6 @@ export class MiddleService {
         return teamsInfo;
     }
 
-
     /*async changeTeamName(data: { email: string , id}): Promise<string> {
         const email = data.email;
         const teamIds = await this.memberService.findTeamsByEmail(email);
