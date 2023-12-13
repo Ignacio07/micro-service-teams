@@ -6,7 +6,7 @@ export class CreateTeamDto{
     @IsNotEmpty()
     name: string;
 
-    @IsNumber()
+    @IsString()
     @IsNotEmpty()
     id_project: number;
     
