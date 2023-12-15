@@ -42,4 +42,16 @@ export class MiddleService {
         return add;
       }
 
+    async deleteTeamAndMembers(id: string): Promise<string>{
+        const id_team = parseInt(id, 10);
+        const existingTeam = await this.teamService.findOne(id_team);
+        console.log(id, existingTeam);
+        if (!existingTeam) {
+          throw new Error('El Equipo no existe');
+        }
+        await this.memberService.deleteMembersByTeamId(id_team);
+        await this.teamService.remove(id_team);
+        return 'Equipo eliminado';
+    }
+
 }
