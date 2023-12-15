@@ -13,8 +13,8 @@ export class MiddleController {
     constructor(private readonly middleService: MiddleService) {}
 
     @Get('get-teams/:email')
-    async getTeamNames(@Body() email: string ){
-        return await this.middleService.getTeams(email);
+    async getTeamNames(@Body() data: { email: string }){
+        return await this.middleService.getTeams(data);
     }
 
     @Post('new-member')

@@ -16,17 +16,14 @@ export class MiddleService {
     ) {}
 
 
-    async getTeams(email: string ): Promise<{ id: number; name: string }[]> {
+    async getTeams(data: { email: string }): Promise<{ ids: number[]; names: string[] }> {
+        const email = data.email;
         console.log(email);
         const teamIds = await this.memberService.findTeamsByEmail(email);
         const teams = await this.teamService.findTeamsById(teamIds);
-        const teamsInfo = teams.map((team) => ({
-            id: team.id,
-            name: team.name,
-        }));
-    
-        console.log(teamsInfo);
-        return teamsInfo;
+        const ids = teams.map((team) => team.id);
+        const names = teams.map((team) => team.name);
+        return { ids, names };
         
     }
 
