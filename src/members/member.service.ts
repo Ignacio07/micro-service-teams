@@ -79,6 +79,6 @@ export class MemberService {
           throw new Error('El Miembro no existe');
         }
         await this.memberRepository.delete(existingMember);
-        return 'Equipo eliminado';
+        return 'Miembro eliminado';
     }
 } 
