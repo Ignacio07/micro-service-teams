@@ -11,9 +11,9 @@ import { Post, Body } from '@nestjs/common';
 export class MiddleController { 
     constructor(private readonly middleService: MiddleService) {}
 
-    @Get('get-teams/:data')
-    async getTeamNames(@Body() data: { email: string }){
-        return await this.middleService.getTeams(data);
+    @Get('get-teams/:email')
+    async getTeamNames(@Body() email: string ){
+        return await this.middleService.getTeams(email);
     }
 
 

@@ -15,13 +15,10 @@ export class MiddleService {
     ) {}
 
 
-    async getTeams(data: { email: string }): Promise<{ id: number; name: string }[]> {
-        const email = data.email;
-        console.log(email); 
-    
+    async getTeams(email: string ): Promise<{ id: number; name: string }[]> {
+        console.log(email);
         const teamIds = await this.memberService.findTeamsByEmail(email);
         const teams = await this.teamService.findTeamsById(teamIds);
-    
         const teamsInfo = teams.map((team) => ({
             id: team.id,
             name: team.name,
@@ -29,6 +26,7 @@ export class MiddleService {
     
         console.log(teamsInfo);
         return teamsInfo;
+        
     }
 
     /*async changeTeamName(data: { email: string , id}): Promise<string> {
