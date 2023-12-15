@@ -6,6 +6,7 @@ import { Injectable } from '@nestjs/common';
 import { MemberService } from 'src/members/member.service';
 import { TeamService } from 'src/teams/team.service';
 import { CreateMemberTeamDto } from './dto/create.member.team.dto';
+import { Member } from 'src/members/entities/member.entity';
 
 
 @Injectable()
@@ -53,5 +54,7 @@ export class MiddleService {
         await this.teamService.remove(id_team);
         return 'Equipo eliminado';
     }
+
+   
 
 }
