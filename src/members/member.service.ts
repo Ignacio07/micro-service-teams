@@ -71,4 +71,14 @@ export class MemberService {
           throw new Error(`Error al eliminar miembros del equipo: ${error.message}`);
         }
     }
+
+    async deleteMemberTeam(id_team: number, email: string): Promise<string>{
+        const existingMember = await this.memberRepository.findOne({ where: {email, id_team}});
+        console.log(id_team, existingMember);
+        if (!existingMember) {
+          throw new Error('El Miembro no existe');
+        }
+        await this.memberRepository.delete(existingMember);
+        return 'Equipo eliminado';
+    }
 } 

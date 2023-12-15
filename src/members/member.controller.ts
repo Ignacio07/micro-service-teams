@@ -6,6 +6,7 @@ import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Put } fr
 import { MemberService } from './member.service';
 import { CreateMemberDto } from './dto/create.member.dto';
 import { UpdateMemberDto } from './dto/update.member.dto';
+import e from 'express';
 
 @Controller('members')
 export class MemberController {
@@ -54,5 +55,10 @@ export class MemberController {
   async findMemberByIdTeam(@Param('id_team') id_team: string): Promise<{emails: string[]}>{
     const id = parseInt(id_team,10);
     return await this.memberService.findByIdTeam(id);
+  }
+
+  @Delete('member-team/:email')
+  async deleteMemberTeam(@Param('email') email: string, id_team: number){
+    return await this.memberService.deleteMemberTeam(id_team, email);
   }
 }
