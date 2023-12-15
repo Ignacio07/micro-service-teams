@@ -34,6 +34,10 @@ export class MiddleService {
         if (!existingTeam) {
             throw new Error('El Equipo no existe');
         }
+        const member = await this.memberService.findByIdTeam(id_team);
+        if(member){
+            throw new Error('Miembro Existente');
+        }
         const add = await this.memberService.create({email, id_team})
         return add;
     }
