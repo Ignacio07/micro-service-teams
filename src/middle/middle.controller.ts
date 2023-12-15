@@ -21,12 +21,6 @@ export class MiddleController {
     async addMemberToProject(@Body() createMemberTeamDto: CreateMemberTeamDto) {
         const result = await this.middleService.addMemberToTeam(createMemberTeamDto);
         console.log(result);
-        return result;
-        
+        return result;   
     }
-
-    /*@Post('change-team-name')
-    async changeTeamName(@Body() data: { id: number, name: string }){
-        return await this.middleService.changeTeamName(data);
-    }*/
 }

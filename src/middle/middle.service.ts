@@ -10,6 +10,7 @@ import { CreateMemberTeamDto } from './dto/create.member.team.dto';
 
 @Injectable()
 export class MiddleService {
+    httpService: any;
     constructor(
         private readonly teamService: TeamService, 
         private readonly memberService: MemberService,
@@ -24,29 +25,21 @@ export class MiddleService {
         const ids = teams.map((team) => team.id);
         const names = teams.map((team) => team.name);
         return { ids, names };
-        
     }
 
     async addMemberToTeam({ email, id }: CreateMemberTeamDto) {
-        const id_team = parseInt(id,10);
+        const id_team = parseInt(id, 10);
         console.log(id_team);
         const existingTeam = await this.teamService.findOne(id_team);
         if (!existingTeam) {
-            throw new Error('El Equipo no existe');
+          throw new Error('El Equipo no existe');
         }
-        const member = await this.memberService.findByIdTeam(id_team);
-        if(member){
-            throw new Error('Miembro Existente');
+        const member = await this.memberService.findOne(email);
+        if (member && member.id_team === id_team) {
+          throw new Error('El usuario ya pertenece a este equipo');
         }
-        const add = await this.memberService.create({email, id_team})
+        const add = await this.memberService.create({ email, id_team });
         return add;
-    }
+      }
 
-    /*async changeTeamName(data: { email: string , id}): Promise<string> {
-        const email = data.email;
-        const teamIds = await this.memberService.findTeamsByEmail(email);
-        const teams = await this.teamService.findTeamsById(teamIds);
-        const teamNames
-        return team.name;
-    }*/
 }
