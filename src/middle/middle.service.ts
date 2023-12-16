@@ -18,8 +18,7 @@ export class MiddleService {
     ) {}
 
 
-    async getTeams(data: { email: string }): Promise<{ ids: number[]; names: string[] }> {
-        const email = data.email;
+    async getTeams( email: string ): Promise<{ ids: number[]; names: string[] }> {
         console.log(email);
         const teamIds = await this.memberService.findTeamsByEmail(email);
         const teams = await this.teamService.findTeamsById(teamIds);

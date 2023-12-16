@@ -68,7 +68,7 @@ export class MemberService {
           const membersToDelete = await this.memberRepository.find({ where : {id_team} });
           await Promise.all(membersToDelete.map(member => this.memberRepository.delete(member)));
         } catch (error) {
-          throw new Error(`Error al eliminar miembros del equipo: ${error.message}`);
+          throw new Error(`Error al eliminar miembros del equipo: ${error}`);
         }
     }
 
