@@ -54,14 +54,18 @@ export class TeamService {
     }
 
     async findTeamsByIdProject(id_busqueda: number): Promise<{ ids: number[]; names: string[] }> {
-        const teams = await this.teamRepository.createQueryBuilder('team')
-            .where('team.id_project = :id_busqueda', { id_busqueda })
-            .getMany();
+        try{
+            const teams = await this.teamRepository.createQueryBuilder('team')
+                .where('team.id_project = :id_busqueda', { id_busqueda })
+                .getMany();
 
-        const ids = teams.map((team) => team.id);
-        const names = teams.map((team) => team.name);
+            const ids = teams.map((team) => team.id);
+            const names = teams.map((team) => team.name);
 
-        return { ids, names };
+            return { ids, names };
+        } catch (error) {
+            throw new Error('Error al encontrar equipos');
+        }
     }
     
 } 

@@ -73,12 +73,16 @@ export class MemberService {
     }
 
     async deleteMemberTeam(id_team: number, email: string): Promise<string>{
-        const existingMember = await this.memberRepository.findOne({ where: {email, id_team}});
-        console.log(id_team, existingMember);
-        if (!existingMember) {
-          throw new Error('El Miembro no existe');
+         try{ 
+            const existingMember = await this.memberRepository.findOne({ where: {email, id_team}});
+            console.log(id_team, existingMember);
+            if (!existingMember) {
+            throw new Error('El Miembro no existe');
+            }
+            await this.memberRepository.delete(existingMember);
+            return 'Miembro eliminado';
+        } catch (error) {
+            throw new Error('Error al eliminar miembros del equipo');
         }
-        await this.memberRepository.delete(existingMember);
-        return 'Miembro eliminado';
     }
 } 
